@@ -1,5 +1,9 @@
-import Image from 'next/image';
+import Terminal from '@/components/terminal/Terminal';
 
 export default function Home() {
-  return <main className=""></main>;
+  return (
+    <div>
+      <Terminal></Terminal>
+    </div>
+  );
 }
