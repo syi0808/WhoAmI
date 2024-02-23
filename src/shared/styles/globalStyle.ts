@@ -1,9 +1,9 @@
 import * as sx from '@stylexjs/stylex';
-import { fontWeight, tokens } from './tokens.stylex';
+import { fontWeight, fontFamily } from './tokens.stylex';
 
 const styles = sx.create({
   body: {
-    fontFamily: tokens.fontFamily,
+    fontFamily: fontFamily.global,
     fontWeight: fontWeight.regular,
   },
   wallpaper: {

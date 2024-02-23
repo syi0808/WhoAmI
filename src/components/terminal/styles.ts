@@ -19,7 +19,7 @@ const styles = sx.create({
     width: '100%',
     height: '100%',
     color: 'rgb(194, 194, 194)',
-    fontFamily: fontFamily.terminalFontFamily,
+    fontFamily: fontFamily.terminal,
     fontSize: '16px',
     lineHeight: '1.5',
     whiteSpace: 'pre-wrap',
