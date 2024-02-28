@@ -12,28 +12,28 @@
 
 ```mermaid
 classDiagram
-class GlobalLayout
+    class GlobalLayout
 
-namespace MissionControl {
-  class Container
-  class DesktopItem
-  class MissionControlContext
-}
+    namespace MissionControl {
+      class Container
+      class DesktopItem
+      class MissionControlContext
+    }
 
-namespace Tabs {
-  class TerminalTab
-  class ChromeTab
-}
+    namespace Tabs {
+      class TerminalTab
+      class ChromeTab
+    }
 
-GlobalLayout o-- Container
+    GlobalLayout o-- Container
 
-MissionControlContext <|-- Container
-Container ..> MissionControlContext
-Container *-- DesktopItem : Number of tabs
+    MissionControlContext <|-- Container
+    Container ..> MissionControlContext
+    Container *-- DesktopItem : Number of tabs
 
-Container *-- TerminalTab : Style
-Container *-- ChromeTab : Style
+    Container *-- TerminalTab : Style
+    Container *-- ChromeTab : Style
 
-TerminalTab ..> MissionControlContext
-ChromeTab ..> MissionControlContext
+    TerminalTab ..> MissionControlContext
+    ChromeTab ..> MissionControlContext
 ```
