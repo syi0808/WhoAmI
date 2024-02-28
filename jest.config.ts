@@ -22,9 +22,6 @@ const config: Config = {
   },
   testMatch: ['**/__tests__/**/?(*.)+(spec|test).[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   verbose: false,
-  transform: {
-    '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { presets: ['next/babel'] }],
-  },
   injectGlobals: true,
 };
 

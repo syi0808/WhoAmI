@@ -4,7 +4,8 @@ import { fontWeight, fontFamily } from './tokens.stylex';
 const styles = sx.create({
   body: {
     fontFamily: fontFamily.global,
-    fontWeight: fontWeight.regular,
+    fontWeight: fontWeight.thin,
+    letterSpacing: '0.4px',
   },
   wallpaper: {
     width: '100%',

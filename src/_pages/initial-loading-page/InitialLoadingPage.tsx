@@ -1,3 +1,4 @@
+import Terminal from '@/components/terminal/Terminal';
 import { getIsBot } from '@/shared/utils/header';
 
 export default function InitialLoadingPage() {
@@ -5,5 +6,5 @@ export default function InitialLoadingPage() {
 
   if (isBot) return null;
 
-  return <div></div>;
+  return <Terminal />;
 }

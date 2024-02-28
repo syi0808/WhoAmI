@@ -6,6 +6,7 @@ export const fontFamily = sx.defineVars({
 });
 
 export const fontWeight = sx.defineVars({
+  thin: '300',
   regular: '500',
   bold: '700',
 });
