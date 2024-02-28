@@ -20,6 +20,20 @@ namespace MissionControl {
   class MissionControlContext
 }
 
-GlobalLayout *-- Container
+namespace Tabs {
+  class TerminalTab
+  class ChromeTab
+}
 
+GlobalLayout o-- Container
+
+MissionControlContext <|-- Container
+Container ..> MissionControlContext
+Container *-- DesktopItem : Number of tabs
+
+Container *-- TerminalTab : Style
+Container *-- ChromeTab : Style
+
+TerminalTab ..> MissionControlContext
+ChromeTab ..> MissionControlContext
 ```
