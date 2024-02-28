@@ -7,7 +7,7 @@ module.exports = {
       '@stylexjs/babel-plugin',
       {
         dev: process.env.NODE_ENV === 'development',
-        runtimeInjection: true,
+        runtimeInjection: process.env.NODE_ENV === 'development',
         genConditionalClasses: true,
         treeshakeCompensation: true,
         aliases: {

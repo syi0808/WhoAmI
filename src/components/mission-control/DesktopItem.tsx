@@ -1,10 +1,20 @@
-import * as sx from '@stylexjs/stylex';
+'use client';
 
-export default function DesktopItem({}: {}) {
+import * as sx from '@stylexjs/stylex';
+import { useMissionControl } from './state-manager/useMissionControl';
+
+interface Props {
+  label: string;
+  index: number;
+}
+
+export default function DesktopItem({ label, index }: Props) {
+  const { setRef } = useMissionControl();
+
   return (
     <div {...sx.props(styles.container)}>
-      <div {...sx.props(styles.preview)}></div>
-      <span {...sx.props(styles.desktopName)}>Desktop</span>
+      <div ref={setRef(index)} {...sx.props(styles.preview)}></div>
+      <span {...sx.props(styles.desktopName)}>{label}</span>
     </div>
   );
 }
@@ -17,9 +27,10 @@ const styles = sx.create({
     gap: '8px',
   },
   preview: {
-    width: '150px',
-    // height: '82px',
-    aspectRatio: '16 / 10',
+    // For aspect-ratio current view
+    // Calculrate ratio in real macbook
+    width: '7.61svw',
+    height: '7.65svh',
     background: 'black',
   },
   desktopName: {
@@ -27,6 +38,3 @@ const styles = sx.create({
     color: 'white',
   },
 });
-
-// 30.2 : 2.3 = 1920 :
-// 19.6 : 1.5 = 1200 :

@@ -1,20 +1,17 @@
 import * as sx from '@stylexjs/stylex';
 import DesktopItem from './DesktopItem';
 import { ReactElement } from 'react';
-import { MissionControlProvider } from './MissionControlContext';
 
-interface Window {
-  component: ReactElement<any & { style: sx.StyleXStyles }>;
-}
+type ChildrenProp = Array<ReactElement<any>>;
 
-export default function MissionControl({ windows }: { windows: Window[] }) {
+export default function MissionControl({ children }: { children: ChildrenProp }) {
   return (
-    <MissionControlProvider>
+    <>
       <div {...sx.props(styles.container)}>
-        <DesktopItem />
+        <DesktopItem label="Desktop" index={0} />
       </div>
-      {windows.map(({ component }) => component)}
-    </MissionControlProvider>
+      {children}
+    </>
   );
 }
 
