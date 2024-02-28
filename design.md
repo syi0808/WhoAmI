@@ -29,10 +29,10 @@ classDiagram
 
     MissionControlContext <|-- Container
     Container ..> MissionControlContext
-    Container *-- DesktopItem : Number of tabs
+    Container *-- DesktopItem : "Number of tabs"
 
-    Container *-- TerminalTab : Style
-    Container *-- ChromeTab : Style
+    Container *-- TerminalTab : "Style"
+    Container *-- ChromeTab : "Style"
 
     TerminalTab ..> MissionControlContext
     ChromeTab ..> MissionControlContext
