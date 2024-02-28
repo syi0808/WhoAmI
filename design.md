@@ -2,16 +2,12 @@
 classDiagram
     class GlobalLayout
 
-    namespace MissionControl {
-      class Container
-      class DesktopItem
-      class MissionControlContext
-    }
+    class Container
+    class DesktopItem
+    class MissionControlContext
 
-    namespace Tabs {
-      class TerminalTab
-      class ChromeTab
-    }
+    class TerminalTab
+    class ChromeTab
 
     GlobalLayout o-- Container
 
