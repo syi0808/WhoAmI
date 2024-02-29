@@ -5,8 +5,9 @@ import Image from 'next/image';
 import wallpaper from '@/assets/macos-wallpaper.jpg';
 import MissionControl from '@/components/mission-control/Container';
 import { ReactNode } from 'react';
-import InitialLoadingPage from '@/_pages/initial-loading-page/InitialLoadingPage';
 import { TabElemenet } from '@/components/mac-tab-container';
+import InitialLoadingPage from '@/_pages/initial-loading-page/InitialLoadingPage';
+import IntroPage from '@/_pages/intro-page/IntroPage';
 
 export const metadata: Metadata = {
   title: '개발자 성예인 포트폴리오',
@@ -17,6 +18,10 @@ const desktopItems: TabElemenet[] = [
   {
     element: <InitialLoadingPage index={0} />,
     label: InitialLoadingPage.displayName,
+  },
+  {
+    element: <IntroPage index={1} />,
+    label: IntroPage.displayName,
   },
 ];
 

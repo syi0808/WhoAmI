@@ -2,6 +2,7 @@
 
 import * as sx from '@stylexjs/stylex';
 import { useMissionControl } from './state-manager/useMissionControl';
+import { fontWeight } from '@/shared/styles/tokens.stylex';
 
 interface Props {
   label: string;
@@ -25,6 +26,8 @@ const styles = sx.create({
     flexDirection: 'column',
     alignItems: 'center',
     gap: '8px',
+    fontWeight: fontWeight.thin,
+    letterSpacing: '0.4px',
   },
   preview: {
     // For aspect-ratio current view
