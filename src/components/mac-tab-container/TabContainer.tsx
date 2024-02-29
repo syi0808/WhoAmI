@@ -1,34 +1,21 @@
 'use client';
 
-import { motion, useAnimate } from 'framer-motion';
-import { ComponentType, ReactNode, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 import * as sx from '@stylexjs/stylex';
+import { useTabAnimation } from './hooks/useTabAnimation';
 import { useMissionControl } from '../mission-control/state-manager/useMissionControl';
-import { getSizeDiffToScale } from '@/shared/utils/math';
-import { useResize } from '@/shared/hooks/useResize';
 
 export default function TabContainer({ children, index }: { children?: ReactNode; index: number }) {
-  const { getBoundingClientRect } = useMissionControl();
-  const [ref, animate] = useAnimate();
-
-  useEffect(() => {
-    const { offsetWidth = 0, offsetHeight = 0 } = ref.current;
-    const { width = 0, height = 0, x, y } = getBoundingClientRect(0) ?? {};
-    const [scaleX, scaleY] = getSizeDiffToScale([offsetWidth, offsetHeight], [width ?? 0, height ?? 0]);
-
-    animate(ref.current, { x, y, scaleX, scaleY }, { type: 'tween', ease: 'easeInOut', duration: 0.2 });
-  }, []);
-
-  useResize(() => {
-    const { offsetWidth = 0, offsetHeight = 0 } = ref.current;
-    const { width = 0, height = 0, x = 0, y = 0 } = getBoundingClientRect(0) ?? {};
-    const [scaleX, scaleY] = getSizeDiffToScale([offsetWidth, offsetHeight], [width ?? 0, height ?? 0]);
-
-    animate(ref.current, { x, y, scaleX, scaleY }, { duration: 0 });
-  });
+  const { activeIndex } = useMissionControl();
+  const ref = useTabAnimation(index);
 
   return (
-    <motion.div initial={{ originX: 0, originY: 0, x: 0, y: 0, scale: 1 }} ref={ref} {...sx.props(styles.container)}>
+    <motion.div
+      initial={{ originX: 0, originY: 0, x: 0, y: 0, scale: 1 }}
+      ref={ref}
+      {...sx.props(styles.container(index === activeIndex))}
+    >
       <div {...sx.props(styles.styledContainer)}>{children}</div>
     </motion.div>
   );
@@ -52,9 +39,10 @@ const styles = sx.create({
       border: '1px solid rgba(255, 255, 255, 0.15)',
     },
   },
-  container: {
+  container: (isActive: boolean) => ({
     top: 0,
     left: 0,
     position: 'fixed',
-  },
+    zIndex: isActive ? 100 : 'auto',
+  }),
 });

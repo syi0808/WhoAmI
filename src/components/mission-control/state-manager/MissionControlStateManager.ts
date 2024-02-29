@@ -6,7 +6,7 @@ interface State {
 }
 
 const initialState: State = {
-  activeIndex: 1,
+  activeIndex: 0,
   refs: [],
 };
 

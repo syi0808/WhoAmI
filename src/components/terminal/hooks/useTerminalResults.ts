@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 
 export type ResultTexts = { text: string; delay: number }[];
 
-export const useTerminalResult = (texts: ResultTexts, onAnimationEnd?: () => void) => {
+export const useTerminalResult = (texts: ResultTexts, onAnimationEnd?: () => void): [string[], boolean] => {
   const [displayTexts, setDisplayTexts] = useState<string[]>([]);
+  const isEnded = texts.length === displayTexts.length;
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -25,5 +26,5 @@ export const useTerminalResult = (texts: ResultTexts, onAnimationEnd?: () => voi
     return () => clearTimeout(timer);
   }, [texts]);
 
-  return displayTexts;
+  return [displayTexts, isEnded];
 };

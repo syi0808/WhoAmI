@@ -2,10 +2,12 @@
 
 import { promptStyle } from './styles';
 import TextAnimation from '../text-animation/TextAnimation';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { ResultTexts, useTerminalResult } from './hooks/useTerminalResults';
+import { useMissionControl } from '../mission-control/state-manager/useMissionControl';
 
 export function TerminalPrompt({ formattedDate }: { formattedDate: string }) {
+  const { changeActiveIndex } = useMissionControl();
   const [animationEnded, setAnimationEnded] = useState(false);
 
   return (
@@ -14,7 +16,9 @@ export function TerminalPrompt({ formattedDate }: { formattedDate: string }) {
       <TerminalPromptLine>
         <TextAnimation text="yarn dev" onAnimationEnd={() => setAnimationEnded(true)} />
       </TerminalPromptLine>
-      {animationEnded && <TerminalPromptResult texts={PROMPT_RESULT_TEXTS} />}
+      {animationEnded && (
+        <TerminalPromptResult texts={PROMPT_RESULT_TEXTS} onAnimationEnd={() => changeActiveIndex(1)} />
+      )}
     </div>
   );
 }
@@ -23,8 +27,12 @@ function TerminalPromptLine({ children }: { children: ReactNode }) {
   return <p>sung-yein@Yeins-MacBook-Pro ~ % {children}</p>;
 }
 
-function TerminalPromptResult({ texts }: { texts: ResultTexts }) {
-  const displayTexts = useTerminalResult(texts);
+function TerminalPromptResult({ texts, onAnimationEnd }: { texts: ResultTexts; onAnimationEnd?: () => void }) {
+  const [displayTexts, isEnded] = useTerminalResult(texts);
+
+  useEffect(() => {
+    if (isEnded) onAnimationEnd?.();
+  }, [isEnded]);
 
   return (
     <>

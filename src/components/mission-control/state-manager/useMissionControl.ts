@@ -5,6 +5,8 @@ import { MissionControlStateManager } from './MissionControlStateManager';
 
 const singleton = new MissionControlStateManager();
 
+window.stateManager = singleton;
+
 export const useMissionControl = () => {
   const { refs, activeIndex } = useSyncExternalStore(
     singleton.subscribe.bind(singleton),
