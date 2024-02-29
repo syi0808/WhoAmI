@@ -12,7 +12,7 @@ export default function TextAnimation({ text, onAnimationEnd }: { text: string; 
       type: 'tween',
       duration: 1,
       ease: 'easeInOut',
-      delay: 1,
+      delay: 1.5,
     });
 
     onAnimationEnd && controls.then(onAnimationEnd);

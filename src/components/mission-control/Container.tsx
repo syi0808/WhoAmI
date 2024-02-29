@@ -3,7 +3,7 @@
 import * as sx from '@stylexjs/stylex';
 import DesktopItem from './DesktopItem';
 import { useServer } from '@/shared/hooks/useServer';
-import { ReactNode, cloneElement } from 'react';
+import { ReactNode } from 'react';
 import { TabElemenet } from '../mac-tab-container';
 
 export default function MissionControl({
@@ -18,14 +18,13 @@ export default function MissionControl({
   if (isServer) children;
 
   return (
-    <>
-      <div {...sx.props(styles.container)}>
-        {desktopItems.map(({ label }, index) => (
-          <DesktopItem key={index} index={index} label={label} />
-        ))}
-      </div>
-      {desktopItems.map(({ element }, index) => cloneElement(element, { key: index, index }))}
-    </>
+    <div {...sx.props(styles.container)}>
+      {desktopItems.map(({ label, element }, index) => (
+        <DesktopItem key={index} index={index} label={label}>
+          {element}
+        </DesktopItem>
+      ))}
+    </div>
   );
 }
 

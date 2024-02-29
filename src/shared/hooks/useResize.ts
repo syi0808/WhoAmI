@@ -16,8 +16,8 @@ export const useResize = (callback: () => void) => {
   useAnimationFrame(() => {
     if (isResized.current) {
       callback();
-    }
 
-    isResized.current = false;
+      isResized.current = false;
+    }
   });
 };

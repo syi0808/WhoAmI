@@ -4,7 +4,7 @@ import { bodyStyle, wallpaperImageStyle, wallpaperStyle } from '@/shared/styles/
 import Image from 'next/image';
 import wallpaper from '@/assets/macos-wallpaper.jpg';
 import MissionControl from '@/components/mission-control/Container';
-import { ReactNode } from 'react';
+import { ReactNode, RefObject } from 'react';
 import { TabElemenet } from '@/components/mac-tab-container';
 import InitialLoadingPage from '@/_pages/initial-loading-page/InitialLoadingPage';
 import ChromeContainerPage from '@/_pages/chrome-container-page/ChromeContainerPage';

@@ -1,44 +1,51 @@
 'use client';
 
-import { useMissionControl } from '@/components/mission-control/state-manager/useMissionControl';
 import { useResize } from '@/shared/hooks/useResize';
-import { getSizeDiffToScale } from '@/shared/utils/math';
-import { ValueAnimationTransition, useAnimate } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useAnimate } from 'framer-motion';
+import { RefObject, useEffect, useRef } from 'react';
 
-export const useTabAnimation = (index: number) => {
-  const { getBoundingClientRect, activeIndex } = useMissionControl();
-  const [ref, animate] = useAnimate();
-  const isActive = index === activeIndex;
+export const useTabAnimation = ({
+  desktopItemRef,
+  isActive,
+}: {
+  desktopItemRef?: RefObject<HTMLElement>;
+  isActive: boolean;
+}) => {
+  const isFirstAnimation = useRef(true);
   const isActiveRef = useRef(isActive);
-
-  const minimalizeTab = async (options: ValueAnimationTransition) => {
-    const { offsetWidth = 0, offsetHeight = 0 } = ref.current;
-    const { width = 0, height = 0, x = 0, y = 0 } = getBoundingClientRect(index) ?? {};
-    const [scaleX, scaleY] = getSizeDiffToScale([offsetWidth, offsetHeight], [width ?? 0, height ?? 0]);
-
-    return await animate(ref.current, { x, y, scaleX, scaleY }, options);
-  };
+  const [scope, animate] = useAnimate();
 
   useEffect(() => {
     isActiveRef.current = isActive;
 
-    const options: ValueAnimationTransition = { type: 'tween', ease: 'easeInOut', duration: 0.3 };
+    if (isFirstAnimation.current) {
+      if (isActive) {
+        const { x = 0, y = 0 } = desktopItemRef?.current?.getBoundingClientRect() ?? {};
+        animate(scope.current, { x: -x, y: -y, scale: 1, zIndex: 100, position: 'absolute' }, { duration: 0 });
+      }
 
-    if (isActive) {
-      const delay = 800;
-      setTimeout(() => (ref.current.style.zIndex = '100'), delay);
-      animate(ref.current, { x: 0, y: 0, scaleX: 1, scaleY: 1, zIndex: 100 }, { ...options, delay: delay / 1000 });
+      isFirstAnimation.current = false;
     } else {
-      minimalizeTab({ ...options, delay: 0.4 }).then(() => (ref.current.style.zIndex = 'auto'));
+      if (isActive) {
+        const { x = 0, y = 0 } = desktopItemRef?.current?.getBoundingClientRect() ?? {};
+        animate(
+          scope.current,
+          { x: -x, y: -y, scale: 1, zIndex: 100 },
+          { duration: 0.25, type: 'tween', ease: 'easeInOut', delay: 0.8 }
+        );
+      } else {
+        animate(scope.current, { x: 0, y: 0, scale: 0.076 }, { duration: 0.25, delay: 0.4 });
+      }
     }
   }, [isActive]);
 
   useResize(() => {
-    if (isActiveRef.current) return;
+    if (isActiveRef.current) {
+      const { x = 0, y = 0 } = desktopItemRef?.current?.getBoundingClientRect() ?? {};
 
-    minimalizeTab({ duration: 0 });
+      animate(scope.current, { x: -x, y: -y, scale: 1, zIndex: 100 }, { duration: 0 });
+    }
   });
 
-  return ref;
+  return scope;
 };
