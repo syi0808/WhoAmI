@@ -6,7 +6,7 @@ import { MissionControlStateManager } from './MissionControlStateManager';
 const singleton = new MissionControlStateManager();
 
 export const useMissionControl = () => {
-  const { refs } = useSyncExternalStore(
+  const { refs, activeIndex } = useSyncExternalStore(
     singleton.subscribe.bind(singleton),
     singleton.getSnapshot.bind(singleton),
     singleton.getServerSnapshot.bind(singleton)
@@ -16,5 +16,10 @@ export const useMissionControl = () => {
     return refs.at(index)?.getBoundingClientRect();
   };
 
-  return { setRef: singleton.setRef.bind(singleton), getBoundingClientRect };
+  return {
+    setRef: singleton.setRef.bind(singleton),
+    changeActiveIndex: singleton.changeActiveIndex.bind(singleton),
+    activeIndex,
+    getBoundingClientRect,
+  };
 };

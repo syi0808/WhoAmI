@@ -40,7 +40,7 @@ export default function RootLayout({
           />
         </div>
         <MissionControl>
-          <InitialLoadingPage />
+          <InitialLoadingPage index={0} />
           {children as ReactElement}
         </MissionControl>
       </body>

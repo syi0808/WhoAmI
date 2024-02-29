@@ -1,11 +1,12 @@
 import Terminal from '@/components/terminal/Terminal';
 import { getIsBot } from '@/shared/utils/header';
-import { StyleXStyles } from '@stylexjs/stylex';
 
-export default function InitialLoadingPage({ style }: { style?: StyleXStyles }) {
+export default function InitialLoadingPage(props: { index: number }) {
   const isBot = getIsBot();
 
   if (isBot) return null;
 
-  return <Terminal style={style} />;
+  return <Terminal {...props} />;
 }
+
+InitialLoadingPage.displayName = 'Terminal';

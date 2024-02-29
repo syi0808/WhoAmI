@@ -1,18 +1,20 @@
-import TabContainer from '../mac-tab-container/TabContainer';
+'use client';
+
 import TabHeader from './TabHeader';
 import { containerStyle } from './styles';
 import { TerminalPrompt } from './TerminalPrompt';
 import dayjs from 'dayjs';
+import { withTabContainer } from '../mac-tab-container/TabContainer';
 
-export default function Terminal() {
+function Terminal() {
   const formattedDate = dayjs().format('ddd MMM D HH:mm:ss');
 
   return (
-    <TabContainer>
-      <div {...containerStyle}>
-        <TabHeader />
-        <TerminalPrompt formattedDate={formattedDate} />
-      </div>
-    </TabContainer>
+    <div {...containerStyle}>
+      <TabHeader />
+      <TerminalPrompt formattedDate={formattedDate} />
+    </div>
   );
 }
+
+export default withTabContainer(Terminal);

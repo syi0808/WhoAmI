@@ -1,16 +1,27 @@
 import { ExternalStore } from '@/shared/utils/class';
 
 interface State {
+  activeIndex: number;
   refs: (HTMLElement | null)[];
 }
 
 const initialState: State = {
+  activeIndex: 1,
   refs: [],
 };
 
 export class MissionControlStateManager extends ExternalStore<State> {
   constructor() {
     super(initialState);
+  }
+
+  changeActiveIndex(index: number) {
+    this.state = {
+      ...this.state,
+      activeIndex: index,
+    };
+
+    this.emitChange();
   }
 
   setRef(index: number) {

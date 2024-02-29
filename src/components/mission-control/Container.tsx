@@ -1,6 +1,6 @@
 import * as sx from '@stylexjs/stylex';
 import DesktopItem from './DesktopItem';
-import { ReactElement } from 'react';
+import { Children, ReactElement, cloneElement } from 'react';
 
 type ChildrenProp = Array<ReactElement<any>>;
 
@@ -8,9 +8,11 @@ export default function MissionControl({ children }: { children: ChildrenProp })
   return (
     <>
       <div {...sx.props(styles.container)}>
-        <DesktopItem label="Desktop" index={0} />
+        {Children.map(children, (child, index) => (
+          <DesktopItem label={child.type.displayName} index={index} />
+        ))}
       </div>
-      {children}
+      {Children.map(children, (child, index) => cloneElement(child, { index }))}
     </>
   );
 }
