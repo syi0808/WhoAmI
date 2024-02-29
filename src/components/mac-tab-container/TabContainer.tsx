@@ -34,18 +34,6 @@ export default function TabContainer({ children, index }: { children?: ReactNode
   );
 }
 
-export const withTabContainer = <P extends object>(Component: ComponentType<P>) => {
-  function WrappedComponent({ index, ...props }: { index: number } & P) {
-    return (
-      <TabContainer index={index}>
-        <Component {...(props as P)} />
-      </TabContainer>
-    );
-  }
-
-  return WrappedComponent;
-};
-
 const styles = sx.create({
   styledContainer: {
     border: '1px solid rgba(0, 0, 0, 0.4)',

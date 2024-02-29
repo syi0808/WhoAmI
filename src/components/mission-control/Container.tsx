@@ -1,18 +1,30 @@
+'use client';
+
 import * as sx from '@stylexjs/stylex';
 import DesktopItem from './DesktopItem';
-import { Children, ReactElement, cloneElement } from 'react';
+import { useServer } from '@/shared/hooks/useServer';
+import { ReactNode, cloneElement } from 'react';
+import { TabElemenet } from '../mac-tab-container';
 
-type ChildrenProp = Array<ReactElement<any>>;
+export default function MissionControl({
+  children,
+  desktopItems,
+}: {
+  children: ReactNode;
+  desktopItems: TabElemenet[];
+}) {
+  const isServer = useServer();
 
-export default function MissionControl({ children }: { children: ChildrenProp }) {
+  if (isServer) children;
+
   return (
     <>
       <div {...sx.props(styles.container)}>
-        {Children.map(children, (child, index) => (
-          <DesktopItem label={child.type.displayName} index={index} />
+        {desktopItems.map(({ label }, index) => (
+          <DesktopItem key={index} index={index} label={label} />
         ))}
       </div>
-      {Children.map(children, (child, index) => cloneElement(child, { index }))}
+      {desktopItems.map(({ element }, index) => cloneElement(element, { key: index, index }))}
     </>
   );
 }
