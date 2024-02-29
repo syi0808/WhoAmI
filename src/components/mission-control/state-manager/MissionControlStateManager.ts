@@ -1,4 +1,5 @@
 import { ExternalStore } from '@/shared/utils/class';
+import { headers } from 'next/headers';
 
 interface State {
   activeIndex: number;
@@ -6,11 +7,11 @@ interface State {
 }
 
 const initialState: State = {
-  activeIndex: 1,
+  activeIndex: 0,
   refs: [],
 };
 
-export class MissionControlStateManager extends ExternalStore<State> {
+class MissionControlStateManager extends ExternalStore<State> {
   constructor() {
     super(initialState);
   }
@@ -36,3 +37,5 @@ export class MissionControlStateManager extends ExternalStore<State> {
     return initialState;
   }
 }
+
+export const missionControlStateManager = new MissionControlStateManager();

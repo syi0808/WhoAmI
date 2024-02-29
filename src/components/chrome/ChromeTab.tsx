@@ -2,11 +2,15 @@ import * as sx from '@stylexjs/stylex';
 import favicon from './assets/favicon-16x16.png';
 import { fontFamily } from '@/shared/styles/tokens.stylex';
 
-export default function ChromeTab({ label }: { label: string }) {
+export default function ChromeTab({ label, isActive }: { label: string; isActive: boolean }) {
   return (
-    <div {...sx.props(styles.tabContainer)}>
-      <div {...sx.props(styles.tabCorner, styles.tabCornerLeft)} />
-      <div {...sx.props(styles.tabCorner, styles.tabCornerRight)} />
+    <div {...sx.props(styles.tabContainer, isActive && styles.activeTabContainer)}>
+      {isActive && (
+        <>
+          <div {...sx.props(styles.tabCorner, styles.tabCornerLeft)} />
+          <div {...sx.props(styles.tabCorner, styles.tabCornerRight)} />
+        </>
+      )}
       <div {...sx.props(styles.tab)}>
         <img width="14" src={favicon.src} />
         <span>{label}</span>
@@ -17,16 +21,18 @@ export default function ChromeTab({ label }: { label: string }) {
 
 const styles = sx.create({
   tabContainer: {
-    width: '20%',
+    // width: '20%',
+    width: '230px',
     maxWidth: '230px',
     padding: '7px 10px',
     fontSize: '12px',
     fontFamily: fontFamily.global,
     position: 'relative',
     fontWeight: '400',
-    zIndex: 1,
-
     color: 'rgb(227, 227, 227)',
+    zIndex: 1,
+  },
+  activeTabContainer: {
     background: 'rgb(60, 60, 60)',
     borderRadius: '10px',
     '::before': {

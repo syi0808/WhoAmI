@@ -1,4 +1,4 @@
-import ChromeTab from './ChromeTab';
+import ChromeTabs from './ChromeTabs';
 import { buttonStyle, buttonWrapperStyle, headerStyle } from './styles';
 
 export default function TabHeader() {
@@ -9,7 +9,7 @@ export default function TabHeader() {
         <div {...buttonStyle}></div>
         <div {...buttonStyle}></div>
       </div>
-      <ChromeTab label="New Tab" />
+      <ChromeTabs />
     </div>
   );
 }

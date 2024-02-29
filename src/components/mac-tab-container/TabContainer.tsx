@@ -4,18 +4,12 @@ import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
 import * as sx from '@stylexjs/stylex';
 import { useTabAnimation } from './hooks/useTabAnimation';
-import { useMissionControl } from '../mission-control/state-manager/useMissionControl';
 
 export default function TabContainer({ children, index }: { children?: ReactNode; index: number }) {
-  const { activeIndex } = useMissionControl();
   const ref = useTabAnimation(index);
 
   return (
-    <motion.div
-      initial={{ originX: 0, originY: 0, x: 0, y: 0, scale: 1 }}
-      ref={ref}
-      {...sx.props(styles.container(index === activeIndex))}
-    >
+    <motion.div initial={{ originX: 0, originY: 0, x: 0, y: 0, scale: 1 }} ref={ref} {...sx.props(styles.container)}>
       <div {...sx.props(styles.styledContainer)}>{children}</div>
     </motion.div>
   );
@@ -39,10 +33,9 @@ const styles = sx.create({
       border: '1px solid rgba(255, 255, 255, 0.15)',
     },
   },
-  container: (isActive: boolean) => ({
+  container: {
     top: 0,
     left: 0,
     position: 'fixed',
-    zIndex: isActive ? 100 : 'auto',
-  }),
+  },
 });

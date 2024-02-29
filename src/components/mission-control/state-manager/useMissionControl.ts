@@ -1,11 +1,11 @@
 'use client';
 
 import { useSyncExternalStore } from 'react';
-import { MissionControlStateManager } from './MissionControlStateManager';
+import { missionControlStateManager } from './MissionControlStateManager';
 
-const singleton = new MissionControlStateManager();
+const singleton = missionControlStateManager;
 
-window.stateManager = singleton;
+// window.stateManager = singleton;
 
 export const useMissionControl = () => {
   const { refs, activeIndex } = useSyncExternalStore(

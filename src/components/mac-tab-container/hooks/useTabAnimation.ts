@@ -2,10 +2,9 @@
 
 import { useMissionControl } from '@/components/mission-control/state-manager/useMissionControl';
 import { useResize } from '@/shared/hooks/useResize';
-import { useServer } from '@/shared/hooks/useServer';
 import { getSizeDiffToScale } from '@/shared/utils/math';
 import { ValueAnimationTransition, useAnimate } from 'framer-motion';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export const useTabAnimation = (index: number) => {
   const { getBoundingClientRect, activeIndex } = useMissionControl();
@@ -13,23 +12,25 @@ export const useTabAnimation = (index: number) => {
   const isActive = index === activeIndex;
   const isActiveRef = useRef(isActive);
 
-  const minimalizeTab = (options: ValueAnimationTransition) => {
+  const minimalizeTab = async (options: ValueAnimationTransition) => {
     const { offsetWidth = 0, offsetHeight = 0 } = ref.current;
     const { width = 0, height = 0, x = 0, y = 0 } = getBoundingClientRect(index) ?? {};
     const [scaleX, scaleY] = getSizeDiffToScale([offsetWidth, offsetHeight], [width ?? 0, height ?? 0]);
 
-    animate(ref.current, { x, y, scaleX, scaleY }, options);
+    return await animate(ref.current, { x, y, scaleX, scaleY }, options);
   };
 
   useEffect(() => {
     isActiveRef.current = isActive;
 
-    const options: ValueAnimationTransition = { type: 'tween', ease: 'easeInOut', duration: 0.2 };
+    const options: ValueAnimationTransition = { type: 'tween', ease: 'easeInOut', duration: 0.3 };
 
     if (isActive) {
-      animate(ref.current, { x: 0, y: 0, scaleX: 1, scaleY: 1 }, { ...options, delay: 0.8 });
+      const delay = 800;
+      setTimeout(() => (ref.current.style.zIndex = '100'), delay);
+      animate(ref.current, { x: 0, y: 0, scaleX: 1, scaleY: 1, zIndex: 100 }, { ...options, delay: delay / 1000 });
     } else {
-      minimalizeTab(options);
+      minimalizeTab({ ...options, delay: 0.4 }).then(() => (ref.current.style.zIndex = 'auto'));
     }
   }, [isActive]);
 
