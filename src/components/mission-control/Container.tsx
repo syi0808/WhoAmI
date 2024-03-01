@@ -4,7 +4,7 @@ import * as sx from '@stylexjs/stylex';
 import DesktopItem from './DesktopItem';
 import { useServer } from '@/shared/hooks/useServer';
 import { ReactNode } from 'react';
-import { TabElemenet } from '../mac-tab-container';
+import { TabElemenet } from '../mac-tab-container/types';
 
 export default function MissionControl({
   children,

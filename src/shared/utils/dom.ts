@@ -15,7 +15,11 @@ export const addResizeListener = (() => {
     resizeListeners.forEach((listner) => void listner(event));
   }, 1000 / frameRate);
 
-  getFps().then((fps) => ((frameRate = fps), (options.delay = 1000 / fps)));
+  getFps().then((fps) => {
+    const fallbackFps = Math.max(fps, 60);
+
+    (frameRate = fallbackFps), (options.delay = 1000 / fallbackFps);
+  });
 
   window.addEventListener('resize', globalResizeListener);
 

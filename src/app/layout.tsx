@@ -4,41 +4,66 @@ import { bodyStyle, wallpaperImageStyle, wallpaperStyle } from '@/shared/styles/
 import Image from 'next/image';
 import wallpaper from '@/assets/macos-wallpaper.jpg';
 import MissionControl from '@/components/mission-control/Container';
-import { ReactNode, RefObject } from 'react';
-import { TabElemenet } from '@/components/mac-tab-container';
+import { ReactNode } from 'react';
 import InitialLoadingPage from '@/_pages/initial-loading-page/InitialLoadingPage';
 import ChromeContainerPage from '@/_pages/chrome-container-page/ChromeContainerPage';
+import { TabElemenet } from '@/components/mac-tab-container/types';
+import { getIsBot } from '@/shared/utils/header';
 
 export const metadata: Metadata = {
   title: '개발자 성예인 포트폴리오',
   description: '개발자 성예인의 포트폴리오 입니다.',
 };
 
-const desktopItems: TabElemenet[] = [
-  {
-    element: <InitialLoadingPage index={0} />,
-    label: InitialLoadingPage.displayName,
-  },
-  {
-    element: <ChromeContainerPage index={1} />,
-    label: ChromeContainerPage.displayName,
-  },
-];
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const isBot = await getIsBot();
+
+  const desktopItems: TabElemenet[] = [
+    ...(!isBot
+      ? [
+          {
+            element: <InitialLoadingPage index={0} />,
+            label: InitialLoadingPage.displayName,
+          },
+        ]
+      : []),
+    {
+      element: <ChromeContainerPage index={1} />,
+      label: ChromeContainerPage.displayName,
+    },
+  ];
+
   return (
     <html lang="ko">
       <head>
-        <link href="https://www.uncon.net/MesloLGSNF-web-fonts/stylesheet.css" rel="stylesheet" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://www.uncon.net/MesloLGSNF-web-fonts/fonts/MesloLGS-NF-Regular.woff2" rel="preload" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
-          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Blod.woff2"
+          rel="preload"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2"
+          rel="preload"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Light.woff2"
+          rel="preload"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff/Pretendard-Blod.woff"
+          rel="preload"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff/Pretendard-Regular.woff"
+          rel="preload"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff/Pretendard-Light.woff"
+          rel="preload"
         />
       </head>
       <body {...bodyStyle}>
@@ -49,6 +74,7 @@ export default function RootLayout({
             src={wallpaper.src}
             sizes="100vw"
             alt="macos sonama wallpaper"
+            fetchPriority="low"
             {...wallpaperImageStyle}
           />
         </div>
@@ -57,3 +83,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export const dynamic = 'force-static';

@@ -1,4 +1,3 @@
-import { fontFamily, fontWeight } from '@/shared/styles/tokens.stylex';
 import * as sx from '@stylexjs/stylex';
 
 const styles = sx.create({

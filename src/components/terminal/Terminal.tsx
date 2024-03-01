@@ -1,6 +1,6 @@
 import TabHeader from './TabHeader';
 import { containerStyle } from './styles';
-import { TerminalPrompt } from './TerminalPrompt';
+import TerminalPrompt from './TerminalPrompt';
 import { withTabContainer } from '../mac-tab-container';
 import dayjs from 'dayjs';
 

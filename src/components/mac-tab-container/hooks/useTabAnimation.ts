@@ -27,21 +27,21 @@ export const useTabAnimation = ({
       isFirstAnimation.current = false;
     } else {
       if (isActive) {
-        const { x = 0, y = 0 } = desktopItemRef?.current?.getBoundingClientRect() ?? {};
+        const { left: x = 0, top: y = 0 } = desktopItemRef?.current?.getBoundingClientRect() ?? {};
         animate(
           scope.current,
           { x: -x, y: -y, scale: 1, zIndex: 100 },
-          { duration: 0.25, type: 'tween', ease: 'easeInOut', delay: 0.8 }
+          { duration: 0.25, type: 'tween', ease: 'easeInOut', delay: 1 }
         );
       } else {
-        animate(scope.current, { x: 0, y: 0, scale: 0.076 }, { duration: 0.25, delay: 0.4 });
+        animate(scope.current, { x: 0, y: 0, scale: 0.076 }, { duration: 0.25, delay: 0.6 });
       }
     }
   }, [isActive]);
 
   useResize(() => {
     if (isActiveRef.current) {
-      const { x = 0, y = 0 } = desktopItemRef?.current?.getBoundingClientRect() ?? {};
+      const { left: x = 0, top: y = 0 } = desktopItemRef?.current?.getBoundingClientRect() ?? {};
 
       animate(scope.current, { x: -x, y: -y, scale: 1, zIndex: 100 }, { duration: 0 });
     }

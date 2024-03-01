@@ -1,6 +1,7 @@
 import * as sx from '@stylexjs/stylex';
-import favicon from './assets/favicon-16x16.png';
+import favicon from './assets/favicon-32x32.png';
 import { fontFamily } from '@/shared/styles/tokens.stylex';
+import Image from 'next/image';
 
 export default function ChromeTab({ label, isActive }: { label: string; isActive: boolean }) {
   return (
@@ -12,7 +13,7 @@ export default function ChromeTab({ label, isActive }: { label: string; isActive
         </>
       )}
       <div {...sx.props(styles.tab)}>
-        <img width="14" src={favicon.src} />
+        <Image width="14" height="14" src={favicon.src} alt={`chrome ${label} tab favicon`} />
         <span>{label}</span>
       </div>
     </div>

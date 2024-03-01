@@ -1,10 +1,5 @@
-import { ComponentType, ReactElement, RefObject } from 'react';
+import { ComponentType, RefObject } from 'react';
 import TabContainer from './TabContainer';
-
-export type TabElemenet = {
-  element: ReactElement<{ desktopItemRef?: RefObject<HTMLElement>; index: number } & Record<PropertyKey, any>>;
-  label: string;
-};
 
 export const withTabContainer = <P extends object>(Component: ComponentType<P>) => {
   function WrappedComponent({

@@ -6,7 +6,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { ResultTexts, useTerminalResult } from './hooks/useTerminalResults';
 import { useMissionControl } from '../mission-control/state-manager/useMissionControl';
 
-export function TerminalPrompt({ formattedDate }: { formattedDate: string }) {
+export default function TerminalPrompt({ formattedDate }: { formattedDate: string }) {
   const { changeActiveIndex } = useMissionControl();
   const [animationEnded, setAnimationEnded] = useState(false);
 
