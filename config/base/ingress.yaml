@@ -12,7 +12,7 @@ spec:
   tls:
     - hosts:
         - portfolio.castle-yein.site
-      secretName: argo-tls-secret
+      secretName: portfolio-tls-secret
   rules:
     - host: portfolio.castle-yein.site
       http:
