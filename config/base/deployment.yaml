@@ -19,3 +19,5 @@ spec:
           image: docker-registry.castle-yein.site/portfolio:latest
           ports:
             - containerPort: 3000
+      imagePullSecrets:
+        - name: docker-registry
