@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: portfolio
   namespace: portfolio
+  labels:
+    app: portfolio
 spec:
   type: ClusterIP
   ports:
@@ -14,3 +16,5 @@ spec:
       protocol: TCP
       port: 443
       targetPort: 3000
+  selector:
+    app: portfolio
