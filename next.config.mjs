@@ -8,6 +8,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const nextConfig = {
   transpilePackages: ['@stylexjs/open-props'],
   reactStrictMode: false,
+  output: 'standalone',
 };
 
 export default stylexPlugin({

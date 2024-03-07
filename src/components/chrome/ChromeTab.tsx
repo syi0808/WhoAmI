@@ -22,28 +22,37 @@ export default function ChromeTab({ label, isActive }: { label: string; isActive
 
 const styles = sx.create({
   tabContainer: {
-    // width: '20%',
     width: '230px',
     maxWidth: '230px',
     padding: '7px 10px',
     fontSize: '12px',
     fontFamily: fontFamily.global,
     position: 'relative',
+    zIndex: 0,
     fontWeight: '400',
     color: 'rgb(227, 227, 227)',
-    zIndex: 1,
+    transition: 'background 0.15s ease-in',
+    borderRadius: '10px',
+    ':hover': {
+      background: 'rgb(29, 73, 115)',
+    },
   },
   activeTabContainer: {
-    background: 'rgb(60, 60, 60)',
     borderRadius: '10px',
     '::before': {
       content: '',
       position: 'absolute',
-      height: '20px',
+      height: 'calc(100% + 10px)',
       width: '100%',
       background: 'rgb(60, 60, 60)',
       bottom: '-10px',
       left: 0,
+      zIndex: 0,
+      borderTopLeftRadius: '10px',
+      borderTopRightRadius: '10px',
+    },
+    ':hover': {
+      background: 'transparent',
     },
   },
   tab: {
@@ -59,8 +68,8 @@ const styles = sx.create({
     width: '10px',
     height: '100%',
     background: 'rgb(60, 60, 60)',
-    zIndex: 0,
-    '::after': {
+    zIndex: -1,
+    '::before': {
       content: '',
       top: 0,
       left: 0,
@@ -72,13 +81,13 @@ const styles = sx.create({
   },
   tabCornerLeft: {
     right: '100%',
-    '::after': {
+    '::before': {
       borderBottomRightRadius: '10px',
     },
   },
   tabCornerRight: {
     left: '100%',
-    '::after': {
+    '::before': {
       borderBottomLeftRadius: '10px',
     },
   },
