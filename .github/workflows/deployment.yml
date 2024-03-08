@@ -17,10 +17,8 @@ env:
   APP_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    outputs:
-      image-tags: ${{ steps.meta.outputs.tags }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -58,16 +56,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           build-args: |
             APP_ENV=${{env.APP_ENV}}
-  deploy:
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: for debug
-        run: echo "${{ needs.build.outputs.image-tags }}"
 
       - name: Setup kustomize
         uses: imranismail/setup-kustomize@v2
@@ -75,9 +63,9 @@ jobs:
       - name: Update kubernetes manifest
         run: |
           cd config/overlays/${{env.APP_ENV}}
-          kustomize edit set image docker-registry.castle-yein.site/portfolio=:${{ needs.build.outputs.image-tags }}
+          kustomize edit set image docker-registry.castle-yein.site/portfolio=:${{ steps.meta.outputs.tags }}
           git config user.name "GitHub Actions"
           git config user.email "<>"
           git add .
-          git commit -m 'chore: Update manifests for ${{ needs.build.outputs.image-tags }}'
+          git commit -m 'chore: Update manifests for ${{ steps.meta.outputs.tags }}'
           git push

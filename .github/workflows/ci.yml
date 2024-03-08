@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+permissions:
+  contents: write
+  issues: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache-dependency-path: './yarn.lock'
+
+      - name: Set Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            docker-registry.castle-yein.site/portfolio
+
+      - name: Build image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
