@@ -13,6 +13,9 @@ permissions:
   checks: write
   pull-requests: write
 
+env:
+  APP_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,7 +39,7 @@ jobs:
           images: |
             docker-registry.castle-yein.site/portfolio
           tags: |
-            type=raw,value={{branch}}-{{sha}}
+            type=raw,value=${{env.APP_ENV}}-{{branch}}-{{sha}}
 
       - name: Login to Container Registry
         uses: docker/login-action@v3
@@ -52,7 +55,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           build-args: |
-            APP_ENV=${{ inputs.environment }}
+            APP_ENV=${{env.APP_ENV}}
   deploy:
     runs-on: ubuntu-latest
     needs:
@@ -66,12 +69,12 @@ jobs:
 
       - name: Update kubernetes manifest
         run: |
-          git switch manifest@${{ inputs.environment }}
+          git switch manifest@${{env.APP_ENV}}
           git reset --hard ${{ github.ref_name }}
-          cd config/overlays/${{ inputs.environment }}
+          cd config/overlays/${{env.APP_ENV}}
           kustomize edit set image ${{ steps.meta.outputs.tags }}
           git config user.name "GitHub Actions"
           git config user.email "<>"
           git add .
           git commit -m 'k8s manifest for ${{ steps.meta.outputs.tags }}'
-          git push origin manifest@${{ inputs.environment }} -f
+          git push origin manifest@${{env.APP_ENV}} -f
