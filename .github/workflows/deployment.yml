@@ -20,7 +20,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      meta: steps.meta.outputs
+      tags: steps.meta.outputs.tags
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -72,9 +72,9 @@ jobs:
       - name: Update kubernetes manifest
         run: |
           cd config/overlays/${{env.APP_ENV}}
-          kustomize edit set image docker-registry.castle-yein.site/portfolio=docker-registry.castle-yein.site/portfolio:${{ needs.build.outputs.meta.tags }}
+          kustomize edit set image docker-registry.castle-yein.site/portfolio=:${{ needs.build.outputs.tags }}
           git config user.name "GitHub Actions"
           git config user.email "<>"
           git add .
-          git commit -m 'chore: Update manifests for ${{ needs.build.outputs.meta.tags }}'
+          git commit -m 'chore: Update manifests for ${{ needs.build.outputs.tags }}'
           git push
