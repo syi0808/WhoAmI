@@ -6,7 +6,7 @@ function Chrome() {
   return (
     <div {...containerStyle}>
       <TabHeader />
-      <div {...pageContainerStyle}>sdkfjv dkfjnv</div>
+      <div {...pageContainerStyle}>Chrome bar</div>
     </div>
   );
 }
