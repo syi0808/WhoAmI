@@ -4,4 +4,3 @@ resources:
 - ../../base
 images:
 - name: docker-registry.castle-yein.site/portfolio
-  newTag: steps.meta.outputs.tags
