@@ -69,12 +69,10 @@ jobs:
 
       - name: Update kubernetes manifest
         run: |
-          git switch manifest@${{env.APP_ENV}}
-          git reset --hard ${{ github.ref_name }}
           cd config/overlays/${{env.APP_ENV}}
           kustomize edit set image ${{ steps.meta.outputs.tags }}
           git config user.name "GitHub Actions"
           git config user.email "<>"
           git add .
-          git commit -m 'k8s manifest for ${{ steps.meta.outputs.tags }}'
-          git push origin manifest@${{env.APP_ENV}} -f
+          git commit -m 'chore: Update manifests for ${{ steps.meta.outputs.tags }}'
+          git push
