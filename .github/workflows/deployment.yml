@@ -72,7 +72,7 @@ jobs:
       - name: Update kubernetes manifest
         run: |
           cd config/overlays/${{env.APP_ENV}}
-          kustomize edit set image ${{ jobs.meta.tags }}
+          kustomize edit set image ${{ jobs.outputs.meta.tags }}
           git config user.name "GitHub Actions"
           git config user.email "<>"
           git add .
