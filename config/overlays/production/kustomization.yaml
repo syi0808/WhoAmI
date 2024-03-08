@@ -4,4 +4,4 @@ resources:
 - ../../base
 images:
 - name: docker-registry.castle-yein.site/portfolio
-  newTag: production-main-91d4b7a
+  newTag: production-main-5441ff6
