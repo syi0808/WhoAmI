@@ -19,6 +19,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      meta: steps.meta.outputs
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -70,7 +72,7 @@ jobs:
       - name: Update kubernetes manifest
         run: |
           cd config/overlays/${{env.APP_ENV}}
-          kustomize edit set image ${{ steps.meta.outputs.tags }}
+          kustomize edit set image ${{ jobs.meta.tags }}
           git config user.name "GitHub Actions"
           git config user.email "<>"
           git add .
