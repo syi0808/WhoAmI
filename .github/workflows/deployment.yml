@@ -76,5 +76,5 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "<>"
           git add .
-          git commit -m 'chore: Update manifests for ${{ steps.meta.outputs.tags }}'
+          git commit -m 'chore: Update manifests for ${{ needs.build.outputs.meta.tags }}'
           git push
