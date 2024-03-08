@@ -36,7 +36,7 @@ jobs:
           images: |
             docker-registry.castle-yein.site/portfolio
           tags: |
-            type=raw,value=${{ inputs.environment }}-{{branch}}-{{sha}}
+            type=raw,value={{branch}}-{{sha}}
 
       - name: Login to Container Registry
         uses: docker/login-action@v3
