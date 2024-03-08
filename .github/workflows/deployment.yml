@@ -20,7 +20,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      tags: ${{ steps.meta.outputs.tags }}
+      tags: ${{ steps.meta.outputs.tags[0] }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
