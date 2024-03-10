@@ -9,6 +9,7 @@ import InitialLoadingPage from '@/_pages/initial-loading-page/InitialLoadingPage
 import ChromeContainerPage from '@/_pages/chrome-container-page/ChromeContainerPage';
 import { TabElemenet } from '@/components/mac-tab-container/types';
 import { getIsBot } from '@/shared/utils/header';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   title: '개발자 성예인 포트폴리오',
@@ -65,6 +66,7 @@ export default async function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Light.woff2"
           rel="preload"
         />
+        <GoogleAnalytics gaId="G-T1YWCLY4CM" />
       </head>
       <body {...bodyStyle}>
         <div {...wallpaperStyle}>
