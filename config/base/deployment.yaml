@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: portfolio-nextapp-container
-          image: docker-registry.castle-yein.site/portfolio:latest
+          image: docker-registry.castle-yein.com/portfolio:latest
           ports:
             - containerPort: 3000
       imagePullSecrets:

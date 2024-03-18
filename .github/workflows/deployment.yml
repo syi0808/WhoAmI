@@ -41,14 +41,14 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            docker-registry.castle-yein.site/portfolio
+            docker-registry.castle-yein.com/portfolio
           tags: |
             type=raw,value=${{env.APP_ENV}}-{{branch}}-{{sha}}
 
       - name: Login to Container Registry
         uses: docker/login-action@v3
         with:
-          registry: docker-registry.castle-yein.site
+          registry: docker-registry.castle-yein.com
           username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
 

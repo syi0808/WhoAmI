@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - portfolio.castle-yein.site
+        - portfolio.castle-yein.com
       secretName: portfolio-tls-secret
   rules:
-    - host: portfolio.castle-yein.site
+    - host: portfolio.castle-yein.com
       http:
         paths:
           - path: /
